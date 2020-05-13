@@ -1,0 +1,287 @@
+
+ //Double Linklist: Insert Display Remove Search
+//Other Speciality: Reverse the Numbers Items Names
+//Other Specialty : Count the Number of Items Names and Numbers
+//Run on Visual Studio & XCODE
+/*  Name Umar Aslam
+    Section 5A(BSCS)
+    Roll no: F1F18BSCS0012*/
+    
+#include <iostream>
+
+
+using namespace std;
+//using template data type benifit we should not identify the data type its depend on user pass any type of value
+template <class T>
+//Make a class of Node
+class Node {
+public:
+    //Using Template type T
+    T Data;
+    Node<T>* Next;
+    Node<T>* Prev;
+};
+
+
+//Again using template for doublelinklist class
+template <class U>
+//Make the class of double linklist
+class doublelinklist {
+private:
+    //create a two variables Node type
+    Node<U>* Head;
+    Node<U>* Tail;
+    
+    //make a template class for reverse
+   template <class l>
+    //Reverse Function using Swap Variable
+   void Swap(l& obj1, l& obj2)
+   {
+       //swaping
+       l temp;
+       temp = obj1;
+       obj1 = obj2;
+       obj2 = temp;
+   }
+
+public:
+
+    // Make the Constructor
+    doublelinklist() {
+
+        Head = nullptr;
+        Tail = nullptr;
+
+    }
+
+    //Insert Function for Double linklist
+    void insertNode(U c)
+    {
+        
+        //Create a variable Node type name *temp
+        Node<U>* temp = new Node<U>;
+        temp->Data = c;
+        temp->Next = nullptr;
+        temp->Prev = nullptr;
+        //Using IF statement
+        if (this->Head == nullptr)
+        {
+            Head = Tail = temp;
+        }
+        //Else Statement
+        else
+        {
+            temp->Prev = Tail;
+            Tail->Next = temp;
+            Tail = Tail->Next;
+            Tail->Next = nullptr;
+        }
+  
+    }
+    
+    
+    
+    //Using Remove function for Remove variable from Tail
+
+    void Remove()
+    {
+        Node<U>* temp = Tail;
+        Tail = Tail->Prev;
+        Tail->Next = nullptr;
+        delete temp;
+    }
+
+    //Searching Funtion search a value if the value is found display 1 otherwise 0
+
+    bool search(U a) {
+
+        //create variable Node type name *ptr
+        // <U> is template data type
+        Node<U> *ptr =Head;
+       
+        //Using while loop
+        while (ptr != nullptr) {
+            if (ptr->Data == a)
+                return true;
+            ptr = ptr->Next;
+        }
+        return false;
+
+    }
+    
+    //Lenth functin return value count the length of integers items names
+    int Length()
+    {
+        int i = 0;
+        // <U> is template data type
+        Node<U>* ptr = Head;
+        while (ptr != nullptr)
+        {
+            i++;
+            ptr = ptr->Next;
+        }
+        return i;
+    }
+    
+    //Display Function display the values
+
+    void display() {
+
+        // <U> is template data type
+        Node<U>* ptr = Head;
+        while (ptr != nullptr)
+        {
+            cout <<"<--|"<< ptr->Data <<"|-->"<< " ";
+            ptr = ptr->Next;
+
+
+        }
+        cout << endl;
+       
+    }
+    //make reverse function used to reverse the items numbers names
+    void displayreverse() {
+
+        // <U> is template data type
+           Node<U>* ptr = Head;
+           while (ptr != nullptr)
+           {
+               cout <<" "<< ptr->Data << "<-";
+               ptr = ptr->Next;
+
+
+           }
+           cout << endl;
+          
+       }
+
+    
+    //swaplis function reverse the Numbers Names Items
+    void SwapList()
+    {
+        // <U> is template data type
+        Node<U>* head = Head;
+        Node<U>* tail = Tail;
+        while (head!=tail && head->Prev!=tail)
+        {
+            Swap(head->Data, tail->Data);
+            head = head->Next;
+            tail = tail->Prev;
+        }
+    }
+    
+
+    // make a extra remove function is used to remove a variable Name Item from the tail
+    void displayremove(){
+        
+        
+        
+        //simple create a list variable of doublelinklist class
+        doublelinklist<int> list;
+                  list.insertNode(9);
+                  list.insertNode(7);
+                  list.insertNode(1);
+                  list.insertNode(2);
+                  list.insertNode(12);
+                  list.Remove();
+         //simple create a list2 variable of doublelinklist class
+                  doublelinklist<string> list2;
+                  list2.insertNode("ChaudaryUmar");
+                  list2.insertNode("Bread");
+                  list2.insertNode("Bakery Items");
+                  list2.Remove();
+                  
+                  cout<<"\n**************Last Number or Item Remove From Tail!**************\n\n";
+                  list.display();
+                  list2.display();
+                  cout<<"\n**************Last Number or Item Remove From Tail!**************\n\n";
+        
+        
+    }
+
+};
+
+
+//Main Function Start
+int main() {
+    
+    cout<<"<--------------------------->|!DoublyLinkList!|<--------------------------->\n";
+    //Insert Number items Names
+    //Insert Numbers
+    cout<<"\n\t|*----------Insert->(Numbers Items Names in Doubly Linklist)----------*|\n\n";
+    doublelinklist<int> list;
+    list.insertNode(9);
+    list.insertNode(7);
+    list.insertNode(1);
+    list.insertNode(2);
+    list.insertNode(12);
+    //Number Display
+    list.display();
+    cout<<"\n";
+  //insert Names and Items
+    doublelinklist<string> list2;
+    list2.insertNode("ChaudaryUmar");
+    list2.insertNode("Bread");
+    list2.insertNode("BakeryItems");
+//Items Names Display
+    list2.display();
+    
+    //Count the Length of Number Items and Names
+    cout<<"\n\n|*----------Output Count the Number of Integers----------*|\n\n";
+    cout <<"---------------->Number of integers: " << list.Length() << "\n";
+    cout<<"\n|*----------Output Count the Number of Items----------*|\n\n";
+    cout <<"---------------->Number of Items: "<< list2.Length() << "\n";
+    //Reverse the double linklist
+    list.SwapList();
+    list2.SwapList();
+    //Display Reverse the Doublelink list
+    cout<<"\n\n|*----------Display Reverse the Numbers Items Names:----------*|\n";
+    list.displayreverse();
+    list2.displayreverse();
+    cout<<"\n\n";
+    
+     cout<<"|*----------Display Search the Numbers:----------*|\n";
+   
+     //create a integer type varibale using in if statement
+    int n,n2,n3;
+    string m;
+    //Give answer in 0 or 1
+    cout<<"Choose the Option Which you want to Search:\n1)Number \n2)Item/Names\n";
+    cin>>n2;
+    if(n2==1)
+    {
+    cout<<"If Number is Available Output is 1 or If Number is not available Output is 0"<<endl;
+    cout<<"Enter a Number Which you want to Search:";
+    cin>>n;
+    cout<<"Result:"<<list.search(n)<<"\n";
+    }
+    else if(n2==2)
+    {
+    cout<<"If Name/Item is Available Output is 1 or If Number is not available Output is 0"<<endl;
+    cout<<"Enter a Name/Item Which you want to Search:";
+    cin>>m;
+    cout<<"Result:"<<list2.search(m)<<"\n";
+    }
+    else
+        cout<<"You Enter Invalid Number!\n";
+
+    
+    cout<<"\n|*----------Remove the Numbers Items Names From the Tail:----------*|\n";
+     
+         //Remove the Number Items And Names from the Tail
+     cout<<"If you want to remove the Number  Names and Items \n1)Remove\n2)Not Remove";
+     cin>>n3;
+     if(n3==1){
+          list.displayremove();
+     }
+     else if(n3==2){
+         cout<<"Number Names Items Not Remove!\n";
+     }
+     
+
+    return 0;
+
+
+}
+
+
