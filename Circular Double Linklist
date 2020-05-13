@@ -1,0 +1,236 @@
+//CircularDoubleLinklist: Insert Display Remove Search
+//Other Specialty : Count the Number of Items Names and Numbers
+//Run on Visual Studio & XCODE
+/*  Name Umar Aslam
+    Section 5A(BSCS)
+    Roll no: F1F18BSCS0012*/
+ #include<iostream>
+using namespace std;
+//using template data type we should not identify the data type its depend on user pass any type of value
+template <class t>
+//Make a class of Node
+class Node
+{
+public:
+     //Using Template Data type T
+    t Data;
+    Node<t> *Next;
+    Node<t> *Prev;
+};
+//Again using template for Circulardoublelinklist class
+template <class U>
+//Make the class of Circularlinklist
+class CLinkedList{
+  
+private:
+       //create a two variables Node type
+    Node<U> *Head;
+    Node<U> *Tail;
+    
+public:
+     // Make the Constructor
+    CLinkedList()
+    {
+        Head = Tail = nullptr;
+    }
+    
+    void InsertAtEnd(U c)
+    {
+        //Create a variable Node type name *temp
+        Node<U> *temp = new Node<U>;
+        temp->Data = c;
+        temp->Next = nullptr;
+        temp->Prev = nullptr;
+        //Using IF statement
+        if (Head == nullptr)
+        {
+            Head = Tail = temp;
+        }
+        //Using Else-if Statement
+        else if (Head == Tail)
+        {
+            Tail->Next = temp;
+            Tail->Prev = Tail;
+            Tail = Tail->Next;
+            Tail->Next = Head;
+            Head->Prev = Tail;
+        }
+        //Else Statement
+
+        else
+        {
+            Tail->Next = temp;
+            temp->Prev = Tail;
+            Head->Prev = temp;
+            Tail = Tail->Next;
+        }
+    }
+    //Display Function display the values
+
+    void Display()
+    {
+        if (Head == nullptr)
+        {
+            return;
+        }
+        // <U> is template data type
+        Node<U> *temp = Head;
+        while (temp!=Tail)
+        {
+            cout << temp->Data << "  ";
+            temp = temp->Next;
+        }
+        cout << temp->Data << endl;
+    }
+    //Searching Funtion search a value if the value is found display 1 otherwise 0
+
+    bool search(U a) {
+
+        //create variable Node type name *ptr
+        // <U> is template data type
+        Node<U> *ptr =Head;
+       
+        //Using while loop
+        while (ptr != nullptr) {
+            if (ptr->Data == a)
+                return true;
+            ptr = ptr->Next;
+        }
+        return false;
+
+    }
+    
+        //Using Remove function for Remove variable from Tail
+    void Remove()
+      {
+          Node<U>* temp = Tail;
+          Tail = Tail->Prev;
+          Tail->Next = nullptr;
+          delete temp;
+      }
+
+    // make a extra remove function is used to remove a variable Name Item from the tail
+
+    void displayremove(){
+        
+        
+        
+        //simple create a list variable of doublelinklist class
+         CLinkedList<int> list;
+           list.InsertAtEnd(20);
+           list.InsertAtEnd(2);
+           list.InsertAtEnd(9);
+           list.InsertAtEnd(1);
+           list.InsertAtEnd(0);
+           list.Display();
+                  list.Remove();
+         //simple create a list2 variable of doublelinklist class
+                 CLinkedList<string> list2;
+                   list2.InsertAtEnd("Umar");
+                   list2.InsertAtEnd("BakeryItem");
+                   list2.InsertAtEnd("Food");
+                   list2.Display();
+                  list2.Remove();
+                  
+                  cout<<"\n**************Last Number or Item Remove From Tail!**************\n\n";
+                  list.Display();
+                  list2.Display();
+                  cout<<"\n**************Last Number or Item Remove From Tail!**************\n\n";
+ 
+    }
+    //Lenth functin return value count the length of integers items names
+    int Length()
+     {
+         int i = 0;
+         // <U> is template data type
+         Node<U>* ptr = Head;
+         while (ptr != nullptr)
+         {
+             i++;
+             ptr = ptr->Next;
+         }
+         return i;
+     }
+};
+
+//Main Function Start
+int main()
+{
+    
+cout<<"<-------------------------->|!CirularDoublyLinkList!|<-------------------------->\n\n";
+    //Insert Number items Names
+    //Insert Numbers
+    cout<<"-->Insert Number Item Names\n";
+    CLinkedList<int> list;
+    list.InsertAtEnd(20);
+    list.InsertAtEnd(2);
+    list.InsertAtEnd(9);
+    list.InsertAtEnd(1);
+    list.InsertAtEnd(0);
+    //Number Display
+    list.Display();
+    cout<<"\n";
+    //insert Names and Items
+    CLinkedList<string> list2;
+    list2.InsertAtEnd("Umar");
+    list2.InsertAtEnd("BakeryItem");
+    list2.InsertAtEnd("Food");
+   //Items Names Display
+    list2.Display();
+    cout<<"-------->Insert Number Item Names\n";
+
+    cout<<"\n";
+ 
+
+    
+    //Count the Length of Number Items and Names
+    cout<<"\n\n|*----------Output Count the Number of Integers----------*|\n\n";
+       cout <<"---------------->Number of integers: " << list.Length() << "\n";
+       cout<<"\n|*----------Output Count the Number of Items----------*|\n\n";
+       cout <<"---------------->Number of Items: "<< list2.Length() << "\n";
+    
+    
+    //create a integer type varibale using in if statement
+    int n,n2,n3;
+    string m;
+    //Give answer in 0 or 1
+    cout<<"Choose the Option Which you wnat to Search:\n1)Number \n2)Item/Names\n";
+    cin>>n2;
+    if(n2==1)
+    {
+    cout<<"If Number is Available Output is 1 or If Number is not available Output is 0"<<endl;
+    cout<<"Enter a Number Which you want to Search:";
+    cin>>n;
+    cout<<"Result:"<<list.search(n)<<"\n";
+    }
+    else if(n2==2)
+    {
+    cout<<"If Name/Item is Available Output is 1 or If Number is not available Output is 0"<<endl;
+    cout<<"Enter a Name/Item Which you want to Search:";
+    cin>>m;
+    cout<<"Result:"<<list2.search(m)<<"\n";
+    }
+    else
+        cout<<"You Enter Invalid Number!\n";
+ 
+    
+    //Remove the Number Items And Names from the Tail
+    cout<<"|*----------Remove the Numbers From the Tail:----------*|\n";
+    
+    
+    cout<<"If you want to remove the Number  Names and Items \n1)Remove\n2)Not Remove";
+    cin>>n3;
+    if(n3==1){
+         list.displayremove();
+    }
+    else if(n3==2){
+        cout<<"Number Names Items Not Remove!";
+    }
+    
+    
+   
+    
+    return 0;
+}
+
+
