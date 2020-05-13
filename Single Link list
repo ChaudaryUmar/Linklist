@@ -1,0 +1,79 @@
+
+
+#include <iostream>
+using namespace std;
+
+class node{
+public:
+    int Data;
+    node *Next;
+};
+class linklist{
+private:
+    node *Head;
+public:
+    linklist(){
+        Head = nullptr;
+    }
+    void insert(int x){
+        node *newnode=new node;
+        newnode->Data=x;
+        newnode->Next=nullptr;
+        if(Head ==nullptr){
+            Head=newnode;
+        }
+        else
+        {
+            node *New=Head;
+            while(New != nullptr)
+            {
+                if(New->Next==nullptr)
+                {
+                    New->Next=newnode;
+                    New=nullptr;
+                    New=newnode;
+                    }
+                New=New->Next;
+            }}}
+    
+    void Print(){
+        node *ptr=Head;
+        while(ptr != nullptr)
+        {
+            cout<<ptr->Data<<" ";
+            ptr=ptr->Next;
+            
+        }
+        cout<<endl;
+    
+    }
+    
+  void swap(int &newnode,int &next){
+      int temp;
+      temp=newnode;
+      newnode=next;
+      next=temp;
+  }
+    
+    
+    
+};
+
+
+int main(){
+    
+    
+    int X,y;
+
+    linklist x;
+ swap(X,y);
+    x.insert(9);
+    x.insert(2);
+    x.insert(1);
+    x.insert(4);
+    x.insert(2);
+    x.insert(1);
+
+    x.Print();
+
+}
